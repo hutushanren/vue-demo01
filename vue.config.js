@@ -1,8 +1,21 @@
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
+// const { defineConfig } = require('@vue/cli-service')
+module.exports = {
   lintOnSave: false,
   devServer: {
-    port: 8081, // 启动端口号
-    open: true  // 启动后是否打开网页
+    open: true,
+    host: 'localhost',
+    port: 8081,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8082/',
+        ws: true,
+        changeOrigin: false,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    },
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    // before: (app) => {}
   }
-})
+}
