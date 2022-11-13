@@ -2,20 +2,18 @@
 module.exports = {
   lintOnSave: false,
   devServer: {
-    open: true,
+    open: false,
     host: 'localhost',
     port: 8081,
     proxy: {
       '/api': {
         target: 'http://localhost:8082/',
         ws: true,
-        changeOrigin: false,
+        changeOrigin: true,
         pathRewrite: {
           '^/api': ''
         }
       }
-    },
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    // before: (app) => {}
+    }
   }
 }

@@ -57,11 +57,12 @@ export default {
       ctx.$refs[formName].validate(async (valid: boolean) => {
         if (valid) {
           proxy.$http({
-            url: '/api/hello',
+            url: '/api/test/hello',
             method: 'get',
             // eslint-disable-next-line no-undef
             // data: ''
           }).then((res: any) => {
+            console.log("=================")
             console.log(res)
           }).catch((err: any) => {
             console.log(err)
