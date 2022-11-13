@@ -64,11 +64,11 @@ export default {
           }).then((res: any) => {
             console.log("=================")
             console.log(res)
+            sessionStorage.setItem('Token', 'liu')
+            router.push("/")
           }).catch((err: any) => {
             console.log(err)
           })
-          router.push("/")
-          console.log('submit!')
         } else {
           console.log('error submit!')
           return false

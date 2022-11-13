@@ -24,4 +24,17 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.path.startsWith('/login')) {
+    next()
+  } else {
+    const token = sessionStorage.getItem('Token')
+    if (!token) {
+      next({ path: '/login'})
+    } else {
+      next()
+    }
+  }
+})
+
 export default router
