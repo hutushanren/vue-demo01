@@ -25,6 +25,11 @@ const endLoading = ()=>{
 axios.interceptors.request.use((config:AxiosRequestConfig<any>)=>{
     // 开始Loading
     startLoading()
+    const token = sessionStorage.getItem('Authorization')
+    if (token) {
+        // 设置请求头
+        config.headers!.Authorization = token
+    }
     return config
 })
 

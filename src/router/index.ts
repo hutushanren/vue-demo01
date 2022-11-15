@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import {configs} from "@typescript-eslint/eslint-plugin";
 
 const routes: Array<RouteRecordRaw> = [
   {
