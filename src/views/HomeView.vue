@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'HomeView',
   setup: function () {
     const logout = () => {
-      sessionStorage.removeItem('Token')
+      sessionStorage.removeItem('Authorization')
       router.push('/login')
     }
 

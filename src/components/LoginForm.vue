@@ -57,14 +57,14 @@ export default {
       ctx.$refs[formName].validate(async (valid: boolean) => {
         if (valid) {
           proxy.$http({
-            url: '/api/test/hello',
-            method: 'get',
+            url: '/api/admin/login',
+            method: 'post',
             // eslint-disable-next-line no-undef
-            // data: ''
+            data: props.loginUser
           }).then((res: any) => {
-            console.log("=================")
             console.log(res)
-            sessionStorage.setItem('Token', 'liu')
+            const token = res.data.tokenHead + ' ' + res.data.token;
+            sessionStorage.setItem('Authorization', token)
             router.push("/")
           }).catch((err: any) => {
             console.log(err)

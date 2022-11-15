@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
   if (to.path.startsWith('/login')) {
     next()
   } else {
-    const token = sessionStorage.getItem('Token')
+    const token = sessionStorage.getItem('Authorization')
     if (!token) {
       next({ path: '/login'})
     } else {
