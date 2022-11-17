@@ -45,6 +45,7 @@ export default defineComponent({
         method: 'get'
       }).then((res: any) => {
         console.log(res)
+        msg = res.toString()
         msg = '123'
       }).catch((err: any) => {
         console.log(err)

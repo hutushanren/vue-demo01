@@ -26,9 +26,10 @@
     </el-form-item>
     <el-form-item label="角色" prop="role">
       <el-select v-model="registerUser.role">
-        <el-option label="管理员" value="admin"></el-option>
-        <el-option label="用户" value="user"></el-option>
-        <el-option label="游客" value="visitor"></el-option>
+        <el-option v-for="item in roles" :key="item.role_value" :label="item.role_name" :value="item.role_value"/>
+<!--        <el-option label="管理员" value="admin"></el-option>-->
+<!--        <el-option label="用户" value="user"></el-option>-->
+<!--        <el-option label="游客" value="visitor"></el-option>-->
       </el-select>
     </el-form-item>
     <el-form-item>
@@ -43,7 +44,8 @@
 </template>
 
 <script lang="ts">
-import { getCurrentInstance } from 'vue'
+import {getCurrentInstance, onMounted, reactive, ref} from 'vue'
+import axios from '@/utils/http'
 export default {
   name: 'registerForm',
   props: {
@@ -56,11 +58,24 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup: function () {
     // 通过解构getCurrentInstance，获取this，这里的this就是ctx
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const { ctx } = getCurrentInstance()
+    const {ctx} = getCurrentInstance()
+
+    let roles = reactive([
+      {
+        role_name: '管理员',
+        role_value: 'admin'
+      },
+      {
+        role_name: '普通用户',
+        role_value: 'user'
+      }
+    ])
+
+
     // 触发登录方法
     const handleRegister = (formName: string) => {
       console.log(ctx)
@@ -73,8 +88,27 @@ export default {
         }
       })
     }
-    return { handleRegister }
+
+    onMounted(() => {
+      axios.get('/api/admin/getRoles').then((res: any) => {
+        roles.length = 0
+        let role_data = res.data
+        for (let i = 0; i < role_data.length; i++) {
+          let tmp = {
+            role_name: role_data[i].name,
+            role_value: role_data[i].code
+          }
+          roles.push(tmp)
+        }
+      }).catch((err: any) => {
+        console.log(err)
+      })
+    })
+
+
+    return {handleRegister, roles}
   }
+
 }
 </script>
 <style scoped>
